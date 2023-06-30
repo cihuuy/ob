@@ -23,9 +23,8 @@ apt install -qq -o=Dpkg::Use-Pty=0 openssh-server pwgen
 
 echo "Setting up SSH"
 
-# Run sshd in the background
-chmod +x /usr/sbin/sshd
-/usr/sbin/sshd -D &
+# Run sshd in the background using nohup
+nohup /usr/sbin/sshd -D &
 
 sleep 2
 
@@ -57,8 +56,8 @@ case $region in
     ;;
 esac
 
-# Create tunnel with selected region
-./ngrok authtoken $authtoken && ./ngrok tcp -region=$ngrok_region 22 &
+# Create tunnel with selected region using nohup
+nohup ./ngrok authtoken $authtoken && ./ngrok tcp -region=$ngrok_region 22 &
 
 sleep 5
 
